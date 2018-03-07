@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--华丽的分界线-->
+    <color name="gank_text1_color">#FFFFFF</color><!--一级字体颜色-->
+    <color name="gank_text1_color_night">#9AACEC</color><!--一级字体颜色夜间-->
+    <color name="gank_text2_color">#3b3b3b</color>     <!--二级字体颜色日间-->
+    <color name="gank_text2_color_night">#626f9b</color>     <!--二级字体颜色夜间-->
+    <color name="gank_text3_color">#999999</color>     <!--三级字体颜色日间-->
+    <color name="gank_text3_color_night">#464c61</color>     <!--三级字体颜色夜间-->
+    <color name="gank_text4_color">#696969</color>     <!--四级字体颜色夜间-->
+    <color name="gank_text4_color_night">#323746</color>     <!--四级字体颜色夜间-->
+
+    <!--白天-->
+    <color name="background_color">#fafafa</color>
+    <color name="text_color">#3b3b3b</color>
+    <color name="line_color">#cccccc</color>
+    <color name="item_bg">#ffffff</color>
+    <color name="item_setting_bg">#ffffff</color>
+    <color name="item_selecter_pressed_color">#e6e6e6</color>
+    <color name="main_color">#54aee6</color>
+    <color name="setting_toobar_line_color">#54aee6</color>
+    <color name="navigation_bg_color">#f7f7f7</color>
+    <color name="navigation_menu_checked_color">#54aee6</color>
+    <color name="navigation_menu_default_color">#4d4d4d</color>
+    <color name="head_lines_bg_color">#ffffff</color>
+    <color name="head_lines_text1_color">#54aee6</color>
+    <color name="head_lines_text2_color">#3b3b3b</color>
+    <color name="girl_pic_trans_item">#a3181818</color>
+    <color name="girl_pic_trans_item_text_color">#FFFFFF</color>
+    <color name="icon_like_color">#fa4242</color>
+    <color name="girl_pic_trans_shade">#00000000</color>
+    <color name="refresh_bg_color">#404040</color>
+    <color name="refresh_text_color">#FFFFFF</color>
+    <color name="tablayout_bg_color">#54aee6</color>
+    <color name="tablayout_text_color">#FFFFFF</color>
+    <color name="tablayout_indicator_color">#e53580ae</color>
+    <color name="main_text_color">#3c87b7</color>
+    <color name="progressbar_color">#FFFFFF</color>
+    <color name="toolbar_title_color">#FFFFFF</color>
+    <color name="black_text1_color">#000000</color>
+    <color name="black_text2_color">#454545</color>
+    <color name="black_text3_color">#7c7c7c</color>
+    <color name="webview_progress_bg_color">#FFFFFF</color>
+    <color name="webview_progress_color">#FF8080</color>
+    <color name="btn_collect_border_color">#c6c6c6</color>
+
+    <!--夜间-->
+    <color name="backgroundColor_night">#232736</color>
+    <color name="textColor_night">#626f9b</color>
+    <color name="lineColor_night">#5a6285</color>
+    <color name="item_bg_night">#1e222e</color>
+    <color name="item_setting_bg_night">#2A2F41</color>
+    <color name="item_selecter_pressed_color_night">#f6202431</color>
+    <color name="main_color_night">#2A2F41</color>
+    <color name="setting_toobar_line_color_night">#5a6285</color>
+    <color name="navigation_bg_color_night">#232736</color>
+    <color name="navigation_menu_checked_color_night">#9AACEC</color>
+    <color name="navigation_menu_default_color_night">#475171</color>
+    <color name="head_lines_bg_color_night">#3d445e</color>
+    <color name="head_lines_text1_color_night">#9AACEC</color>
+    <color name="head_lines_text2_color_night">#626f9b</color>
+    <color name="girl_pic_trans_item_night">#d8232736</color>
+    <color name="girl_pic_trans_item_text_color_night">#626f9b</color>
+    <color name="icon_like_color_night">#AABCF0</color>
+    <color name="girl_pic_trans_shade_night">#52252831</color>
+    <color name="refresh_bg_color_night">#232736</color>
+    <color name="refresh_text_color_night">#626f9b</color>
+    <color name="tablayout_bg_color_night">#232736</color>
+    <color name="tablayout_text_color_night">#AABCF0</color>
+    <color name="tablayout_indicator_color_night">#c34d577e</color>
+    <color name="main_text_color_night">#626f9b</color>
+    <color name="progressbar_color_night">#aec0ff</color>
+    <color name="toolbar_title_color_night">#9AACEC</color>
+    <color name="black_text1_color_night">#9AACEC</color>
+    <color name="black_text2_color_night">#626f9b</color>
+    <color name="black_text3_color_night">#464c61</color>
+    <color name="webview_progress_bg_color_night">#3d445e</color>
+    <color name="webview_progress_color_night">#aec0ff</color>
+    <color name="btn_collect_border_color_night">#9AACEC</color>
+</resources>
