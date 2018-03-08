@@ -1,4 +1,4 @@
-package com.example.gankapp;
+package com.example.gankapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.gankapp.R;
 import com.example.gankapp.util.SkinManager;
 
 /**

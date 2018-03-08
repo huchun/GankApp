@@ -1,4 +1,4 @@
-package com.example.gankapp.base;
+package com.example.gankapp.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -3,8 +3,6 @@ package com.example.gankapp.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.gankapp.SplashActivity;
-
 /**
  * Created by chunchun.hu on 2018/3/6.
  */

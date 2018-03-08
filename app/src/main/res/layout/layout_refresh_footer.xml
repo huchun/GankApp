@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.maning.gankmm.ui.view.ClassicLoadMoreFooterView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/refresh_header_height_twitter">
+
+        <com.maning.mndialoglibrary.MProgressWheel
+            android:id="@+id/progressbar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_toLeftOf="@+id/tvLoadMore"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            app:matProg_barColor="?refresh_text_color"
+            app:matProg_barWidth="2dp"
+            app:matProg_progressIndeterminate="true" />
+
+        <ImageView
+            android:id="@+id/ivSuccess"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@+id/tvLoadMore"
+            app:srcCompat="?refresh_success_icon" />
+
+        <TextView
+            android:id="@+id/tvLoadMore"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="LoadMore"
+            android:textColor="?refresh_text_color" />
+    </RelativeLayout>
+
+</com.maning.gankmm.ui.view.ClassicLoadMoreFooterView>

@@ -1,4 +1,4 @@
-package com.example.gankapp;
+package com.example.gankapp.ui;
 
 import android.app.Application;
 import android.content.Context;

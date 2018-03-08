@@ -3,27 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/first_group"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_fuli"
             android:icon="@drawable/ic_menu_camera"
             android:title="Import" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_history"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Gallery" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_category"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Slideshow" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_collect"
             android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />
+        <item
+            android:id="@+id/nav_codes"
+            android:icon="@drawable/gank_icon_jcode"
+            android:title="泡在网上的日子" />
+
+        <item
+            android:id="@+id/nav_cocoa_china"
+            android:icon="@drawable/gank_icon_ios"
+            android:title="CocoaChina" />
+
+        <item
+            android:id="@+id/nav_more"
+            android:icon="@drawable/gank_icon_more_tools"
+            android:title="工具集合" />
     </group>
 
-    <item android:title="Communicate">
+    <item
+        android:id="@+id/second_group"
+        android:title="Communicate">
         <menu>
+            <item
+                android:id="@+id/setting"
+                android:icon="@drawable/gank_icon_set"
+                android:title="设置" />
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
@@ -32,6 +54,14 @@
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
+            <item
+                android:id="@+id/my_support_pay"
+                android:icon="@drawable/gank_icon_pay"
+                android:title="打赏作者 (￣▽￣)~*" />
+            <item
+                android:id="@+id/about"
+                android:icon="@drawable/gank_icon_about"
+                android:title="关于" />
         </menu>
     </item>
 

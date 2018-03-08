@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+
+    <!--Dialog-->
+    <string name="gank_dialog_confirm">确定</string>
+    <string name="gank_dialog_title_notify">通知</string>
+
+
+</resources>
