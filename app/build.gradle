@@ -20,9 +20,9 @@ android {
     }
 }
 
-allprojects{
-    repositories{
-        maven {url "https://jitpack.io"}
+repositories {
+    flatDir {
+        dirs 'libs'
     }
 }
 
@@ -30,6 +30,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
+    //implementation 'com.android.support:recyclerview-v7:25.3.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     testImplementation 'junit:junit:4.12'
@@ -40,8 +41,9 @@ dependencies {
     implementation 'com.squareup.okhttp:okhttp:2.0.0'
     implementation 'com.afollestad.material-dialogs:core:0.9.3.0'/*material风格的dialogs*/
 
+    compile 'com.yqritc:recyclerview-flexibledivider:1.2.9' /*RecycleView的间隔线*/
+
     implementation 'com.github.maning0303:MNProgressHUD:V1.0.3'  /* 提示框 */
 
-    /*下拉刷新框架*/
-    compile 'com.github.Aspsine:SwipeToLoadLayout:v1.0.4'
+    implementation 'com.github.Aspsine:SwipeToLoadLayout:v1.0.4' /*下拉刷新框架*/
 }

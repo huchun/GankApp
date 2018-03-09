@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.maning.gankmm.ui.view.ClassicLoadMoreFooterView
+<com.example.gankapp.ui.view.ClassicLoadMoreFooterView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/swipe_load_more_footer">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/refresh_header_height_twitter">
 
-        <com.maning.mndialoglibrary.MProgressWheel
+        <com.example.gankapp.ui.view.ProgressWheel
             android:id="@+id/progressbar"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_toLeftOf="@+id/tvLoadMore"
             android:layout_centerVertical="true"
             android:layout_marginRight="4dp"
-            app:matProg_barColor="?refresh_text_color"
+            app:matProg_barColor="@android:color/white"
             app:matProg_barWidth="2dp"
             app:matProg_progressIndeterminate="true" />
 
@@ -36,7 +37,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="LoadMore"
-            android:textColor="?refresh_text_color" />
+             />
     </RelativeLayout>
 
-</com.maning.gankmm.ui.view.ClassicLoadMoreFooterView>
+</com.example.gankapp.ui.view.ClassicLoadMoreFooterView>
