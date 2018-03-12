@@ -23,8 +23,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_welcome);
 
-        app_version = findViewById(R.id.tv_app_version);
-        shadeBg = findViewById(R.id.shade_bg);
+        app_version = (TextView) findViewById(R.id.tv_app_version);
+        shadeBg = (TextView) findViewById(R.id.shade_bg);
 
         int currentSkinType = SkinManager.getCurrentSkinType(this);
         if (currentSkinType == SkinManager.THEME_NIGHT){

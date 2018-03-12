@@ -6,5 +6,7 @@
     <string name="gank_dialog_confirm">确定</string>
     <string name="gank_dialog_title_notify">通知</string>
 
-
+    <!--网络相关-->
+    <string name="gank_net_fail">网络出问题啦</string>
+    <string name="gank_get_data_fail">获取数据失败</string>
 </resources>

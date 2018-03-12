@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.gankapp.R;
 import com.example.gankapp.ui.base.BaseActivity;
+import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.fragment.CategoryFragment;
 import com.example.gankapp.ui.fragment.CollectFragment;
 import com.example.gankapp.ui.fragment.HistoryFragment;
@@ -28,6 +29,8 @@ import com.example.gankapp.util.Constants;
 import com.example.gankapp.util.DialogUtils;
 import com.example.gankapp.util.IntentUtils;
 import com.example.gankapp.util.SkinManager;
+
+import java.util.List;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,7 +56,7 @@ public class MainActivity extends BaseActivity
     private static final String savedInstanceStateItemId = "navigationCheckedItemId";
     private static final String savedInstanceStateTitle = "navigationCheckedTitle";
 
-
+    private List<GankEntity>  welFareList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,5 +283,9 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setPicList(List<GankEntity> welFareList) {
+         this.welFareList = welFareList;
     }
 }

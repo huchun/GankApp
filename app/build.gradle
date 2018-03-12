@@ -9,6 +9,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // 设置MultiDex可用
+        multiDexEnabled true
+        flavorDimensions "versionCode"
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
     buildTypes {
         release {
@@ -18,6 +23,10 @@ android {
     }
     productFlavors {
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 repositories {
@@ -26,24 +35,46 @@ repositories {
     }
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.1.0'
+            }
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     //implementation 'com.android.support:recyclerview-v7:25.3.1'
+    implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+   // androidTestImplementation 'com.android.support.test:runner:1.0.1'
+   // androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.google.code.gson:gson:2.2.4'
-    implementation 'com.squareup.picasso:picasso:2.3.2'
+    //implementation 'com.squareup.picasso:picasso:2.3.2'
+    implementation 'com.github.bumptech.glide:glide:4.0.0' /*图片加载Glide*/
+    implementation 'jp.wasabeef:glide-transformations:2.0.2'
     implementation 'com.squareup.okhttp:okhttp:2.0.0'
-    implementation 'com.afollestad.material-dialogs:core:0.9.3.0'/*material风格的dialogs*/
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
-    compile 'com.yqritc:recyclerview-flexibledivider:1.2.9' /*RecycleView的间隔线*/
+    implementation 'com.android.support:multidex:1.0.1'  /* Dex分包 */
+    implementation 'com.afollestad.material-dialogs:core:0.9.3.0' /*material风格的dialogs*/
+    implementation 'com.yqritc:recyclerview-flexibledivider:1.2.9' /*RecycleView的间隔线*/
+    implementation 'com.github.maning0303:MNProgressHUD:V1.0.3' /* 提示框 */
+    implementation 'com.github.Aspsine:SwipeToLoadLayout:v1.0.4'   /*下拉刷新框架*/
 
-    implementation 'com.github.maning0303:MNProgressHUD:V1.0.3'  /* 提示框 */
+    /*网络监测*/
+    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    implementation 'com.github.zhaokaiqiang.klog:library:1.6.0'  /*日志*/
+    implementation 'com.github.maning0303:SwitcherView:v1.0.4' /*翻滚广告条TextView*/
+    implementation 'com.ldoublem.thumbUplib:ThumbUplib:0.5' /*点赞收藏按钮*/
 
-    implementation 'com.github.Aspsine:SwipeToLoadLayout:v1.0.4' /*下拉刷新框架*/
 }

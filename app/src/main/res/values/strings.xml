@@ -10,4 +10,8 @@
     <string name="gank_dialog_confirm">confirm</string>
     <string name="gank_dialog_title_notify">notify</string>
 
+    <!--http-->
+    <string name="gank_net_fail">http requestion</string>
+    <string name="gank_get_data_fail">data faile</string>
+
 </resources>
