@@ -136,7 +136,7 @@ public class WelFareFragment extends BaseFragment implements IWelFareView, OnLoa
 
     @Override
     public void onRefresh() {
-        // welFarePresenter.getNewDatas();
+         welFarePresenter.getNewDatas();
     }
 
     @Override

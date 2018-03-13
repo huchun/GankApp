@@ -40,6 +40,12 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
     </style>
 
+    <style name="ImageBrowserTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="DayTheme" parent="@style/BaseAppTheme">
         <item name="colorControlNormal">@color/gank_text1_color</item>
         <item name="android:windowBackground">@color/main_color</item>

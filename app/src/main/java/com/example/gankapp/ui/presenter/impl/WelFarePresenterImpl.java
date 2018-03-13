@@ -60,7 +60,7 @@ public class WelFarePresenterImpl extends BasePresenterImpl<IWelFareView> implem
                        if (pageIndex == 1 && welFareLists.size() > 0){
                            welFareLists.clear();
                        }
-                       welFareLists.addAll(welFareLists);
+                       welFareLists.addAll(results);
                        mView.setWelFareList(welFareLists);
                        if (welFareLists == null || welFareLists.size() == 0 || welFareLists.size() < pageIndex * pageSize){
                             mView.setLoadMoreEnabled(false);

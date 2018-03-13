@@ -18,7 +18,7 @@ import retrofit2.http.Path;
 
 public interface APIService {
 
-    //http://gank.io/api/data/Android/3/1
+    //http://gank.io/api/data/Android/10/1
     @Headers("Cache-Control: public, max-age=120")
     @GET("data/{type}/{count}/{pageIndex}")
     Call<HttpResult<List<GankEntity>>> getCommonDateNew(@Path("type") String type,

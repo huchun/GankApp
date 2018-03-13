@@ -15,7 +15,6 @@ public class BuildApi {
 
     private static Retrofit retrofit;
 
-
     public static APIService getAPIService() {
         if (retrofit == null){
             retrofit = new Retrofit.Builder()

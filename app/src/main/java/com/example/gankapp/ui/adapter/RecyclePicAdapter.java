@@ -1,6 +1,8 @@
 package com.example.gankapp.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.util.DebugUtils;
 import android.support.v7.widget.RecyclerView;
@@ -12,14 +14,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.gankapp.R;
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.PicSizeEntity;
 import com.example.gankapp.util.DensityUtil;
 import com.ldoublem.thumbUplib.ThumbUpView;
 import com.maning.library.SwitcherView;
+import com.socks.library.KLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,22 +70,38 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
           options.diskCacheStrategy(DiskCacheStrategy.ALL);
     }
 
-    private void updateHeadLineds() {
-
+    private void updateHeadLineStats() {
+          if (headLines != null && headLines.size() > 0){
+              headLinesStrs = new ArrayList<>();
+              for (int i = 0; i < headLines.size(); i++){
+                  headLinesStrs.add(headLines.get(i).getDesc());
+              }
+          }
     }
 
     public void updateHeadLindes(List<GankEntity> headLists) {
           this.headLines = headLists;
-          updateHeadLineds();
+          updateHeadLineStats();
           notifyDataSetChanged();
     }
 
-    public void updateDatas(List<GankEntity> welFareList) {
-
+    public void updateDatas(List<GankEntity> commonDataResults) {
+         this.commonDataResults = commonDataResults;
+         notifyDataSetChanged();
     }
 
     public void destroyList() {
-
+          if (headLines != null){
+              headLines.clear();
+              headLines = null;
+          }
+          if (commonDataResults != null){
+              commonDataResults.clear();
+              commonDataResults = null;
+          }
+          if (myViewHolderHeader != null){
+              myViewHolderHeader.destroyHeadLines();
+          }
     }
 
     @Override
@@ -125,7 +149,65 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 viewHolderHeader.switcherView.setVisibility(View.GONE);
             }
         }else if (holder instanceof MyViewHolder){
+            final int newPosition = position - 1;
+            final MyViewHolder viewHolder = (MyViewHolder) holder;
+            final GankEntity  resultsEntity = commonDataResults.get(newPosition);
 
+            String time = resultsEntity.getPublishedAt().split("T")[0];
+            viewHolder.tvShowTime.setText(time);
+
+            //图片显示
+            String url = resultsEntity.getUrl();
+
+            PicSizeEntity picSizeEntity = picSizeEntityArrayMap.get(resultsEntity.getUrl());
+            if (picSizeEntity != null && !picSizeEntity.isNull()){
+                 int width = picSizeEntity.getPicWidth();
+                 int height = picSizeEntity.getPicHeight();
+                //计算高宽比
+                int finalHeight = (screenWidth / 2) * height / width;
+                ViewGroup.LayoutParams layoutParams = viewHolder.rl_root.getLayoutParams();
+                layoutParams.height = finalHeight;
+            }
+
+            Glide.with(context)
+                    .asBitmap()
+                    .load(url)
+                    .apply(options)
+                    .thumbnail(0.2f)
+                    .listener(new RequestListener<Bitmap>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                            KLog.e("图片加载失败：" + e.toString());
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                            PicSizeEntity picSizeEntity = picSizeEntityArrayMap.get(resultsEntity.getUrl());
+                            if (picSizeEntity == null || picSizeEntity.isNull()){
+                                int width = resource.getWidth();
+                                int height = resource.getHeight();
+                                //计算高宽比
+                                int finalHeight = (screenWidth / 2) * height / width;
+                                ViewGroup.LayoutParams layoutParams = viewHolder.rl_root.getLayoutParams();
+                                layoutParams.height = finalHeight;
+                                picSizeEntityArrayMap.put(resultsEntity.getUrl(), new PicSizeEntity(width,height));
+                            }
+                            return false;
+                        }
+                    })
+                    .into(viewHolder.imageView);
+
+
+            //如果设置了回调，则设置点击事件
+            if (onItemClickListener != null){
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                     //   onItemClickListener.onItemClick(viewHolder.itemView,newPosition);
+                    }
+                });
+            }
         }
     }
 
@@ -165,6 +247,10 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             rl_root = itemView.findViewById(R.id.rl_root);
             tvLoadingHeadLine = itemView.findViewById(R.id.tv_loading_headline);
             switcherView = itemView.findViewById(R.id.switcherView);
+        }
+
+        public void destroyHeadLines() {
+            switcherView.destroySwitcher();
         }
     }
 

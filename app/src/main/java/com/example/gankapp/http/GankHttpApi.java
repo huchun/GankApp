@@ -24,7 +24,6 @@ public class GankHttpApi {
     public final static String NET_FAIL = MyApplicaiton.getIntstance().getString(R.string.gank_dialog_confirm);
 
     public static Call<HttpResult<List<GankEntity>>> getCommonDataNew(String type, int count, int pageIndex, final int what, final MyCallBack httpCallBack) {
-
         Call<HttpResult<List<GankEntity>>> commonDataNew = BuildApi.getAPIService().getCommonDateNew(type, count, pageIndex);
 
        commonDataNew.enqueue(new Callback<HttpResult<List<GankEntity>>>() {

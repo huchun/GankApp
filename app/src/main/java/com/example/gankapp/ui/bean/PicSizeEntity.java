@@ -48,4 +48,8 @@ public class PicSizeEntity {
                 ", picHeight=" + picHeight +
                 '}';
     }
+
+    public boolean isNull() {
+        return picHeight == 0 || picWidth == 0;
+    }
 }
