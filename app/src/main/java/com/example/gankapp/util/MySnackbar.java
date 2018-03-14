@@ -22,4 +22,9 @@ public class MySnackbar {
             ColoredSnackbar.defaultInfoNight(snackbar).show();
         }
     }
+
+    public static void makeSnackBarRed(View view, String message) {
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        ColoredSnackbar.alert(snackbar).show();
+    }
 }

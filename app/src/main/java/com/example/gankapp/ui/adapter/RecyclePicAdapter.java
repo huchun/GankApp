@@ -22,9 +22,11 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.gankapp.R;
+import com.example.gankapp.db.CollectDao;
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.PicSizeEntity;
 import com.example.gankapp.util.DensityUtil;
+import com.example.gankapp.util.MySnackbar;
 import com.ldoublem.thumbUplib.ThumbUpView;
 import com.maning.library.SwitcherView;
 import com.socks.library.KLog;
@@ -198,13 +200,43 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     })
                     .into(viewHolder.imageView);
 
+            //查询是否存在收藏
+            boolean isCollect = new CollectDao().queryOneCollectByID(resultsEntity.get_id());
+            if (isCollect){
+                viewHolder.btnCollect2.setLike();
+            }else{
+                viewHolder.btnCollect2.setUnlike();
+            }
+
+            viewHolder.btnCollect2.setOnThumbUp(new ThumbUpView.OnThumbUp() {
+                @Override
+                public void like(boolean like) {
+                    if (like){
+                        /*boolean insertResult = new CollectDao().insertOneCollect(resultsEntity);
+                        if (insertResult){
+                            MySnackbar.makeSnackBarBlack(viewHolder.tvShowTime, "收藏成功");
+                        }else{
+                         viewHolder.btnCollect2.setUnlike();
+                            MySnackbar.makeSnackBarRed(viewHolder.tvShowTime, "收藏失败");
+                        }*/
+                    }else{
+                        /*boolean deleteResult = new CollectDao().deleteOneCollect(resultsEntity.get_id());
+                        if (deleteResult){
+                            MySnackbar.makeSnackBarBlack(viewHolder.tvShowTime, "取消收藏成功");
+                        }else{
+                            viewHolder.btnCollect2.setLike();
+                            MySnackbar.makeSnackBarRed(viewHolder.tvShowTime, "取消收藏失败");
+                        }*/
+                    }
+                }
+            });
 
             //如果设置了回调，则设置点击事件
             if (onItemClickListener != null){
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                     //   onItemClickListener.onItemClick(viewHolder.itemView,newPosition);
+                        onItemClickListener.onItemClick(viewHolder.itemView,newPosition);
                     }
                 });
             }

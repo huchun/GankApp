@@ -1,5 +1,6 @@
 package com.example.gankapp.util;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.TextView;
@@ -39,15 +40,18 @@ public class ColoredSnackbar {
             //这只内容文字的颜色
             ((TextView)snackBarView.findViewById(R.id.snackbar_text)).setTextColor(textColorId);
         }
-
-        return null;
+        return snackbar;
     }
 
-    public static Snackbar defaultInfo(Snackbar snackbar) {
+    public static Snackbar  defaultInfo(Snackbar snackbar) {
         return colorSnackBar(snackbar, black, white);
     }
 
     public static Snackbar defaultInfoNight(Snackbar snackbar) {
         return colorSnackBar(snackbar, nightBgColor, nightTextColor);
+    }
+
+    public static Snackbar alert(Snackbar snackbar) {
+        return colorSnackBar(snackbar, red, white);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.gankapp.ui.imagebrowser;
 
+import android.Manifest;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -26,8 +27,10 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.gankapp.R;
+import com.example.gankapp.db.CollectDao;
 import com.example.gankapp.ui.MyApplicaiton;
 import com.example.gankapp.ui.bean.GankEntity;
+import com.example.gankapp.ui.dialog.ListFragmentDialog;
 import com.example.gankapp.ui.view.ProgressWheel;
 import com.example.gankapp.util.BitmapUtils;
 import com.example.gankapp.util.Constants;
@@ -61,7 +64,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     private ImageView currentImageView; //需要保存的图片
     private int clickPosition; //需要保存的图片
-    private int currentPosition;
+    private static int currentPosition;
 
     private ArrayList<String> imageUrlList = new ArrayList<>();
     private ArrayList<String> mListDialogDatas = new ArrayList<>();
@@ -160,8 +163,94 @@ public class MNImageBrowserActivity extends AppCompatActivity {
          });
     }
 
-    public void showBottomSheet() {
+    private void saveImage() {
+        showProgressDialog("正在保存图片...");
+        currentImageView.setDrawingCacheEnabled(true);
+        final Bitmap  bitmap = Bitmap.createBitmap(currentImageView.getDrawingCache());
+        currentImageView.setDrawingCacheEnabled(false);
+        if (null == bitmap){
+                return;
+        }
 
+        // save Image
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final boolean saveBitmapToSD = BitmapUtils.saveBitmapToSD(bitmap, Constants.BasePath, System.currentTimeMillis() + ".jpg", true);
+                MyApplicaiton.getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        dissmissProgressDialog();
+                        if (saveBitmapToSD){
+                            showProgressSuccess("保存成功");
+                        }else{
+                            showProgressError("保存失败");
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
+    public void showBottomSheet() {
+         mListDialogDatas.clear();
+         mListDialogDatas.add("保存");
+         mListDialogDatas.add("分享");
+         mListDialogDatas.add("设置壁纸");
+
+         /*if (welFareLists != null && welFareLists.size() > 0){
+             GankEntity gankEntity = welFareLists.get(currentPosition);
+             //查询是否存在收藏
+             boolean isCollect = new CollectDao().queryOneCollectByID(gankEntity.get_id());
+             if (isCollect){
+                 mListDialogDatas.add("取消收藏");
+             }else{
+                 mListDialogDatas.add("收藏");
+             }
+         }*/
+
+         ListFragmentDialog.newInstance(MNImageBrowserActivity.this).showDialog(getSupportFragmentManager(), mListDialogDatas, new ListFragmentDialog.OnItemClickListener(){
+
+             @Override
+             public void onItemClick(View view, int position) {
+                  if (position == 0){ //save photo
+                      // 先判断是否有权限。
+                      if (AndPermission.hasPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                           saveImage();  // 有权限，直接do anything.
+                      }else {
+                          // 申请权限。
+                          AndPermission.with(MNImageBrowserActivity.this).requestCode(100).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE).send();
+                      }
+                  }else if (position == 1){ //share photo
+
+                  }else if (position == 2){//setting wallpaper
+
+                  }else if (position == 3){//collect photo
+                       /*if (welFareLists != null && welFareLists.size() > 0){
+                              GankEntity gankEntity = welFareLists.get(currentPosition);
+                              // query collect
+                              boolean isCollect = new CollectDao().queryOneCollectByID(gankEntity.get_id());
+                              if (isCollect){
+                                  // collect
+                                  boolean insertResult = new CollectDao().insertOneCollect(gankEntity);
+                                  if (insertResult){
+                                      mStatusDialog.show("收藏成功", getResources().getDrawable(R.mipmap.mn_icon_dialog_success));
+                                  }else{
+                                      mStatusDialog.show("收藏失败", getResources().getDrawable(R.mipmap.mn_icon_dialog_fail));
+                                  }
+                              }else {
+                                  // cancel collect
+                                  boolean deleResult = new CollectDao().deleteOneCollect(gankEntity.get_id());
+                                  if (deleResult){
+                                      mStatusDialog.show("取消收藏成功", getResources().getDrawable(R.mipmap.mn_icon_dialog_success));
+                                  }else{
+                                      mStatusDialog.show("取消收藏失败", getResources().getDrawable(R.mipmap.mn_icon_dialog_fail));
+                                  }
+                              }
+                       }*/
+                  }
+             }
+         });
     }
 
     @Override
@@ -202,8 +291,8 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
             View inflater = layoutInflater.inflate(R.layout.mn_image_browser_item_show_image, container, false);
-            final PhotoView imageView = inflater.findViewById(R.id.photoImageView);
-            final RelativeLayout rl_browser_root = inflater.findViewById(R.id.rl_browser_root);
+            final PhotoView imageView = (PhotoView) inflater.findViewById(R.id.photoImageView);
+            RelativeLayout rl_browser_root = inflater.findViewById(R.id.rl_browser_root);
             final RelativeLayout rl_image_placeholder_bg = inflater.findViewById(R.id.rl_image_placeholder_bg);
             final ImageView  iv_fail = inflater.findViewById(R.id.iv_fail);
             final ProgressWheel progressWheel = inflater.findViewById(R.id.progressWheel);
@@ -211,10 +300,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             iv_fail.setVisibility(View.GONE);
 
             String url = imageUrlList.get(position);
-            Glide.with(context)
-                    .load(url)
-                     .thumbnail(0.2f)
-                    .listener(new RequestListener<Drawable>() {
+            Glide.with(context).load(url).thumbnail(0.2f).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             progressWheel.setVisibility(View.GONE);
@@ -272,7 +358,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             // 权限申请成功回调。
             if (requestCode == 100){
                 MySnackbar.makeSnackBarBlack(viewPagerBrowser, "权限申请成功");
-                saveImage();
+               // saveImage();
             }
         }
 
@@ -290,34 +376,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             }
         }
     };
-
-    private void saveImage() {
-        showProgressDialog("正在保存图片...");
-        currentImageView.setDrawingCacheEnabled(false);
-        final Bitmap bitmap = Bitmap.createBitmap(currentImageView.getDrawingCache());
-        currentImageView.setDrawingCacheEnabled(false);
-        if (bitmap == null){
-            return;
-        }
-        // save Image
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final boolean saveBitmapToSD = BitmapUtils.saveBitmapToSD(bitmap, Constants.BasePath, System.currentTimeMillis() + ".jpg", true);
-                MyApplicaiton.getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        dissmissProgressDialog();
-                        if (saveBitmapToSD){
-                            showProgressSuccess("保存成功");
-                        }else{
-                            showProgressError("保存失败");
-                        }
-                    }
-                });
-            }
-        }).start();
-    }
 
     private void showProgressDialog() {
            dissmissProgressDialog();

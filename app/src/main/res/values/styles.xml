@@ -46,6 +46,13 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="animate_list_dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowEnterAnimation">@anim/translate_up</item>
+        <item name="android:windowExitAnimation">@anim/translate_down</item>
+    </style>
+
     <style name="DayTheme" parent="@style/BaseAppTheme">
         <item name="colorControlNormal">@color/gank_text1_color</item>
         <item name="android:windowBackground">@color/main_color</item>
