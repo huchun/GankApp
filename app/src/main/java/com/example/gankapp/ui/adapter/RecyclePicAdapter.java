@@ -211,22 +211,22 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             viewHolder.btnCollect2.setOnThumbUp(new ThumbUpView.OnThumbUp() {
                 @Override
                 public void like(boolean like) {
-                    if (like){
-                        /*boolean insertResult = new CollectDao().insertOneCollect(resultsEntity);
-                        if (insertResult){
+                    if (like) {
+                        boolean insertResult = new CollectDao().insertOneCollect(resultsEntity);
+                        if (insertResult) {
                             MySnackbar.makeSnackBarBlack(viewHolder.tvShowTime, "收藏成功");
-                        }else{
-                         viewHolder.btnCollect2.setUnlike();
+                        } else {
+                            viewHolder.btnCollect2.setUnlike();
                             MySnackbar.makeSnackBarRed(viewHolder.tvShowTime, "收藏失败");
-                        }*/
-                    }else{
-                        /*boolean deleteResult = new CollectDao().deleteOneCollect(resultsEntity.get_id());
-                        if (deleteResult){
+                        }
+                    } else {
+                        boolean deleteResult = new CollectDao().deleteOneCollect(resultsEntity.get_id());
+                        if (deleteResult) {
                             MySnackbar.makeSnackBarBlack(viewHolder.tvShowTime, "取消收藏成功");
-                        }else{
+                        } else {
                             viewHolder.btnCollect2.setLike();
                             MySnackbar.makeSnackBarRed(viewHolder.tvShowTime, "取消收藏失败");
-                        }*/
+                        }
                     }
                 }
             });

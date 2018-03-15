@@ -1,6 +1,7 @@
 package com.example.gankapp.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
 import com.example.gankapp.ui.bean.GankEntity;
@@ -20,5 +21,13 @@ public class IntentUtils {
 
     public static void startToImageShow(Context context, ArrayList<String> mDatas, ArrayList<GankEntity> gankEntityList, int position, View view) {
         MNImageBrowser.showImageBrowser(context, view, position, mDatas, gankEntityList);
+    }
+
+    public static void startAppShareText(Context context, String shareTitle, String shareText) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain"); // 纯文本
+        shareIntent.putExtra(Intent.EXTRA_TITLE, shareTitle);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        context.startActivity(Intent.createChooser(shareIntent, "分享到"));
     }
 }

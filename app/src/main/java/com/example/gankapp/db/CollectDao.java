@@ -77,6 +77,9 @@ public class CollectDao {
      * @return
      */
     public boolean deleteOneCollect(String ganID) {
-        return false;
+        db = helper.getWritableDatabase();
+        int i = db.delete(GankAppHelper.TABLE_NAME_COLLECT, GankAppHelper.GankID + "=?", new String[]{ganID});
+        db.close();
+        return i > 0;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.gankapp.ui.imagebrowser;
 
 import android.Manifest;
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -34,6 +35,7 @@ import com.example.gankapp.ui.dialog.ListFragmentDialog;
 import com.example.gankapp.ui.view.ProgressWheel;
 import com.example.gankapp.util.BitmapUtils;
 import com.example.gankapp.util.Constants;
+import com.example.gankapp.util.IntentUtils;
 import com.example.gankapp.util.MySnackbar;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.maning.mndialoglibrary.MProgressDialog;
@@ -41,6 +43,7 @@ import com.maning.mndialoglibrary.MStatusDialog;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -198,7 +201,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
          mListDialogDatas.add("分享");
          mListDialogDatas.add("设置壁纸");
 
-         /*if (welFareLists != null && welFareLists.size() > 0){
+         if (welFareLists != null && welFareLists.size() > 0){
              GankEntity gankEntity = welFareLists.get(currentPosition);
              //查询是否存在收藏
              boolean isCollect = new CollectDao().queryOneCollectByID(gankEntity.get_id());
@@ -207,7 +210,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
              }else{
                  mListDialogDatas.add("收藏");
              }
-         }*/
+         }
 
          ListFragmentDialog.newInstance(MNImageBrowserActivity.this).showDialog(getSupportFragmentManager(), mListDialogDatas, new ListFragmentDialog.OnItemClickListener(){
 
@@ -222,15 +225,15 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                           AndPermission.with(MNImageBrowserActivity.this).requestCode(100).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE).send();
                       }
                   }else if (position == 1){ //share photo
-
+                      IntentUtils.startAppShareText(context, "GankApp图片分享", "分享图片:" + imageUrlList.get(clickPosition));
                   }else if (position == 2){//setting wallpaper
-
+                      setWallpaper();
                   }else if (position == 3){//collect photo
-                       /*if (welFareLists != null && welFareLists.size() > 0){
+                       if (welFareLists != null && welFareLists.size() > 0){
                               GankEntity gankEntity = welFareLists.get(currentPosition);
                               // query collect
                               boolean isCollect = new CollectDao().queryOneCollectByID(gankEntity.get_id());
-                              if (isCollect){
+                              if (!isCollect){
                                   // collect
                                   boolean insertResult = new CollectDao().insertOneCollect(gankEntity);
                                   if (insertResult){
@@ -247,10 +250,54 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                                       mStatusDialog.show("取消收藏失败", getResources().getDrawable(R.mipmap.mn_icon_dialog_fail));
                                   }
                               }
-                       }*/
+                       }
                   }
              }
          });
+    }
+
+    private void setWallpaper() {
+        showProgressDialog("正在设置壁纸...");
+        currentImageView.setDrawingCacheEnabled(true);
+        final Bitmap bitmap = Bitmap.createBitmap(currentImageView.getDrawingCache());
+        currentImageView.setDrawingCacheEnabled(false);
+        if (bitmap == null){
+            showProgressDialog("设置失败...");
+            return;
+        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+               boolean flag = false;
+                WallpaperManager manager = WallpaperManager.getInstance(context);
+                try {
+                    manager.setBitmap(bitmap);
+                    flag = true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    flag = false;
+                }finally {
+                    if (flag){
+                        MyApplicaiton.getHandler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                dissmissProgressDialog();
+                                showProgressSuccess("设置成功!");
+                            }
+                        });
+                    }else{
+                        MyApplicaiton.getHandler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                dissmissProgressDialog();
+                                showProgressSuccess("设置失败!");
+                            }
+                        });
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -404,6 +451,4 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private void showProgressError(String message) {
         mStatusDialog.show(message, getResources().getDrawable(R.mipmap.mn_icon_dialog_fail));
     }
-
-
 }
