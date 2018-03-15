@@ -16,6 +16,7 @@
 
     <color name="itemGrayBg">#eaeaea</color>
     <color name="translate">#00000000</color>
+    <color name="backgroundGray">#efefef</color>
 
     <!--白天-->
     <color name="background_color">#fafafa</color>

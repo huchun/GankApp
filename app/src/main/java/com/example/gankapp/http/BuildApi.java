@@ -1,5 +1,7 @@
 package com.example.gankapp.http;
 
+import android.util.Log;
+
 import com.example.gankapp.ui.MyApplicaiton;
 import com.example.gankapp.util.Constants;
 
@@ -16,6 +18,7 @@ public class BuildApi {
     private static Retrofit retrofit;
 
     public static APIService getAPIService() {
+        Log.d("TAG","getAPIService");
         if (retrofit == null){
             retrofit = new Retrofit.Builder()
                      .baseUrl(Constants.BASEURL) //设置Base的访问路径

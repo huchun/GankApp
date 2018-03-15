@@ -1,4 +1,4 @@
-package com.example.gankapp.ui;
+package com.example.gankapp.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -82,7 +82,6 @@ public class MainActivity extends BaseActivity
 
     private void initToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
         int currentSkinType = SkinManager.getCurrentSkinType(this);
         if (SkinManager.THEME_DAY == currentSkinType){
             initBaseToolBar(mToolbar, Constants.FlagWelFare, R.drawable.gank_icon_menu_white);
@@ -211,7 +210,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(savedInstanceStateItemId,navigationCheckedItemId);
+        outState.putInt(savedInstanceStateItemId, navigationCheckedItemId);
         outState.putString(savedInstanceStateTitle,navigationCheckedTitle);
         super.onSaveInstanceState(outState);
     }

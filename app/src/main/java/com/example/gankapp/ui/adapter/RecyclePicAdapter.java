@@ -7,6 +7,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v4.util.DebugUtils;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.example.gankapp.db.CollectDao;
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.PicSizeEntity;
 import com.example.gankapp.util.DensityUtil;
+import com.example.gankapp.util.IntentUtils;
 import com.example.gankapp.util.MySnackbar;
 import com.ldoublem.thumbUplib.ThumbUpView;
 import com.maning.library.SwitcherView;
@@ -39,6 +41,8 @@ import java.util.List;
  */
 
 public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final String TAG = "RecyclePicAdapter";
 
     private Context context;
     private List<GankEntity> commonDataResults;
@@ -73,6 +77,7 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void updateHeadLineStats() {
+        Log.d(TAG, "updateHeadLineStats");
           if (headLines != null && headLines.size() > 0){
               headLinesStrs = new ArrayList<>();
               for (int i = 0; i < headLines.size(); i++){
@@ -82,17 +87,20 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void updateHeadLindes(List<GankEntity> headLists) {
+        Log.d(TAG, "updateHeadLindes");
           this.headLines = headLists;
           updateHeadLineStats();
           notifyDataSetChanged();
     }
 
     public void updateDatas(List<GankEntity> commonDataResults) {
+        Log.d(TAG, "updateDatas");
          this.commonDataResults = commonDataResults;
          notifyDataSetChanged();
     }
 
     public void destroyList() {
+        Log.d(TAG, "destroyList");
           if (headLines != null){
               headLines.clear();
               headLines = null;
@@ -108,6 +116,7 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemViewType(int position) {
+        Log.d(TAG, "getItemViewType");
         if (position == 0){
             return 0;
         }else{
@@ -117,6 +126,7 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d(TAG, "onCreateViewHolder");
         if (0 == viewType){
             View inflate = layoutInflater.inflate(R.layout.item_welfare_header, parent, false);
             myViewHolderHeader = new MyViewHolderHeader(inflate);
@@ -129,7 +139,9 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder");
         if (holder instanceof MyViewHolderHeader){
+            Log.d(TAG, "MyViewHolderHeader");
             final MyViewHolderHeader viewHolderHeader = (MyViewHolderHeader) holder;
             StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) viewHolderHeader.itemView.getLayoutParams();
             layoutParams.setFullSpan(true);
@@ -143,7 +155,7 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     public void onClick(View v) {
                         int index = viewHolderHeader.switcherView.getCurrentIndex();
                         GankEntity randomGankEntity = headLines.get(index);
-
+                        IntentUtils.startToWebActivity(context, randomGankEntity.getType(), randomGankEntity.getDesc(), randomGankEntity.getUrl());
                     }
                 });
             }else{
@@ -151,6 +163,7 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 viewHolderHeader.switcherView.setVisibility(View.GONE);
             }
         }else if (holder instanceof MyViewHolder){
+            Log.d(TAG, "MyViewHolder");
             final int newPosition = position - 1;
             final MyViewHolder viewHolder = (MyViewHolder) holder;
             final GankEntity  resultsEntity = commonDataResults.get(newPosition);
@@ -185,6 +198,7 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                         @Override
                         public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                            Log.d(TAG, "onResourceReady");
                             PicSizeEntity picSizeEntity = picSizeEntityArrayMap.get(resultsEntity.getUrl());
                             if (picSizeEntity == null || picSizeEntity.isNull()){
                                 int width = resource.getWidth();
@@ -245,6 +259,7 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
+        Log.d(TAG, "getItemCount");
         if (commonDataResults != null){
             return commonDataResults.size() + 1;
         }else {
@@ -282,6 +297,7 @@ public class RecyclePicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         public void destroyHeadLines() {
+            Log.d(TAG, "destroyHeadLines");
             switcherView.destroySwitcher();
         }
     }

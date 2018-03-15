@@ -3,6 +3,7 @@ package com.example.gankapp.ui.presenter.impl;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.example.gankapp.http.GankHttpApi;
@@ -40,11 +41,12 @@ public class WelFarePresenterImpl extends BasePresenterImpl<IWelFareView> implem
     private MyCallBack httpCallBack = new MyCallBack() {
         @Override
         public void onSuccess(int what, Object result) {
-
+            Log.d("TAG","onSuccess");
         }
 
         @Override
         public void onSuccessList(int what, List results) {
+            Log.d("TAG","onSuccessList");
                if (mView == null){
                    return;
                }
@@ -92,6 +94,7 @@ public class WelFarePresenterImpl extends BasePresenterImpl<IWelFareView> implem
 
         @Override
         public void onFail(int what, String result) {
+            Log.d("TAG","onFail");
                if (mView == null){
                    return;
                }
@@ -104,17 +107,20 @@ public class WelFarePresenterImpl extends BasePresenterImpl<IWelFareView> implem
 
     @Override
     public void getNewDatas() {
+        Log.d("TAG","getNewDatas");
         GankHttpApi.getCommonDataNew(Constants.FlagWelFare, pageSize, 1, 0x002, httpCallBack);
         getRandomDatas();
     }
 
     @Override
     public void getMoreDatas() {
+        Log.d("TAG","getMoreDatas");
         GankHttpApi.getCommonDataNew(Constants.FlagWelFare, pageSize, 1, 0x001, httpCallBack);
     }
 
     @Override
     public void getRandomDatas() {
+        Log.d("TAG","getRandomDatas");
      //查看配置的干活类型:默认Android
       String headLineType = SharePreUtil.getStringData(mContext, Constants.SPSwitcherDataType, "Android");
       GankHttpApi.getRandomDatas(headLineType,10,0x003,httpCallBack);
@@ -122,6 +128,7 @@ public class WelFarePresenterImpl extends BasePresenterImpl<IWelFareView> implem
 
     @Override
     public void itemClick(View view, int position) {
+        Log.d("TAG","itemClick");
         imageList.clear();
         for (int i = 0; i < welFareLists.size(); i++){
             imageList.add(welFareLists.get(i).getUrl());

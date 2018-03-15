@@ -1,5 +1,7 @@
 package com.example.gankapp.http;
 
+import android.util.Log;
+
 import com.example.gankapp.R;
 import com.example.gankapp.ui.MyApplicaiton;
 import com.example.gankapp.ui.bean.GankEntity;
@@ -24,11 +26,13 @@ public class GankHttpApi {
     public final static String NET_FAIL = MyApplicaiton.getIntstance().getString(R.string.gank_dialog_confirm);
 
     public static Call<HttpResult<List<GankEntity>>> getCommonDataNew(String type, int count, int pageIndex, final int what, final MyCallBack httpCallBack) {
+        Log.d("TAG","getCommonDataNew");
         Call<HttpResult<List<GankEntity>>> commonDataNew = BuildApi.getAPIService().getCommonDateNew(type, count, pageIndex);
 
        commonDataNew.enqueue(new Callback<HttpResult<List<GankEntity>>>() {
            @Override
            public void onResponse(Call<HttpResult<List<GankEntity>>> call, Response<HttpResult<List<GankEntity>>> response) {
+               Log.d("TAG","onResponse");
                if (response.isSuccessful()){
                    HttpResult<List<GankEntity>> httpResult = response.body();
                    if (httpResult != null){
@@ -58,13 +62,16 @@ public class GankHttpApi {
     }
 
     public static Call<RandomEntity> getRandomDatas(String type, int count, final int what, final MyCallBack httpCallBack) {
+        Log.d("TAG","getRandomDatas"+type.toString());
         Call<RandomEntity> randomEntityCall = BuildApi.getAPIService().getRandomDatas(type,count);
 
         randomEntityCall.enqueue(new Callback<RandomEntity>() {
             @Override
             public void onResponse(Call<RandomEntity> call, Response<RandomEntity> response) {
+                Log.d("TAG","onResponse" + response.toString());
                   if (response.isSuccessful()){
                       RandomEntity randomEntity = response.body();
+                      Log.d("TAG","randomEntity" + randomEntity.toString());
                       if (randomEntity != null){
                           if (!randomEntity.isError()){
                               KLog.i("getRandomDatas---success：" + randomEntity.toString());
