@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -76,7 +75,7 @@ public class MClearEditText extends EditText implements TextWatcher, View.OnFocu
         if (mClearDrawable == null){
             mClearDrawable = getResources().getDrawable(R.drawable.gank_icon_clean_edit); //获取默认图标
         }
-        mClearDrawable.setBounds(0, 0, DensityUtil.dip2Px(context, 25),  DensityUtil.dip2Px(context, 25));
+        mClearDrawable.setBounds(0, 0, DensityUtil.dip2Px(context, 22),  DensityUtil.dip2Px(context, 22));
         mLeftDrawable = getCompoundDrawables()[DRAWABLE_LEFT];
         if (mLeftDrawable != null){
             mLeftDrawable.setBounds(0, 0, DensityUtil.dip2Px(context, 25), DensityUtil.dip2Px(context, 25));
@@ -86,9 +85,11 @@ public class MClearEditText extends EditText implements TextWatcher, View.OnFocu
     // 更新删除图片状态: 当内容不为空，而且获得焦点，才显示右侧删除按钮
     private void updateDrawable(boolean hasFocus) {
          if (length() > 0 && hasFocus){
-             setCompoundDrawables(mLeftDrawable, getCompoundDrawables()[DRAWABLE_TOP], mClearDrawable, getCompoundDrawables()[DRAWABLE_BOTTOM]);
+             setCompoundDrawables(mLeftDrawable,
+                     getCompoundDrawables()[DRAWABLE_TOP], mClearDrawable, getCompoundDrawables()[DRAWABLE_BOTTOM]);
          }else {
-             setCompoundDrawables(mLeftDrawable, getCompoundDrawables()[DRAWABLE_TOP], null, getCompoundDrawables()[DRAWABLE_BOTTOM]);
+             setCompoundDrawables(mLeftDrawable,
+                     getCompoundDrawables()[DRAWABLE_TOP], null, getCompoundDrawables()[DRAWABLE_BOTTOM]);
          }
     }
 
@@ -131,6 +132,12 @@ public class MClearEditText extends EditText implements TextWatcher, View.OnFocu
     @Override
     public void afterTextChanged(Editable s) {
         updateDrawable(true); //更新状态
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        mClearDrawable = null;
+        super.finalize();
     }
 
     @Override
