@@ -20,6 +20,8 @@ public class DensityUtil {
         return context.getResources().getDisplayMetrics().widthPixels;
     }
 
-
-
+    public static int dip2Px(Context context, int dpValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
 }

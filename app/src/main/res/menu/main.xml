@@ -2,8 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/action_search"
+        android:orderInCategory="90"
+        android:title="@string/action_search"
+        app:showAsAction="ifRoom"
+        android:background="@drawable/gank_icon_search_white"/>
+
+    <item
+        android:id="@+id/action_login"
+        android:orderInCategory="90"
+        android:title="@string/action_login"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/gank_icon_default_avatar"/>
 </menu>

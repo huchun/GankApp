@@ -1,7 +1,6 @@
 package com.example.gankapp.ui.presenter.impl;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.view.View;
 import com.example.gankapp.http.GankHttpApi;
 import com.example.gankapp.http.MyCallBack;
 import com.example.gankapp.ui.bean.GankEntity;
-import com.example.gankapp.ui.fragment.WelFareFragment;
 import com.example.gankapp.ui.iview.IWelFareView;
 import com.example.gankapp.ui.presenter.IWelFarePresenter;
 import com.example.gankapp.util.Constants;

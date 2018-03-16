@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background_color">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/gank_ic_back_white" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/gank_icon_search_white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/btn_search"
+            android:layout_toRightOf="@id/btn_back"
+            android:background="@drawable/search_bg">
+
+            <com.example.gankapp.ui.view.MClearEditText
+                android:id="@+id/editTextSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@null"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLength="1"
+                android:textSize="13sp"
+                android:hint="输入想要搜索的关键字" />
+
+            <com.example.gankapp.ui.view.ProgressWheel
+                android:id="@+id/progressWheel"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:visibility="gone"
+                app:matProg_barColor="@color/colorPrimary"
+                app:matProg_barWidth="2dp"
+                app:matProg_progressIndeterminate="true" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+        android:id="@+id/swipeToLoadLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/refresh_bg_color"
+        app:swipe_style="classic">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/swipe_target"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_color"
+            android:clipToPadding="false"
+            android:fadeScrollbars="true"
+            android:scrollbars="vertical" />
+
+        <include
+            android:id="@+id/swipe_load_more_footer"
+            layout="@layout/layout_refresh_footer"/>
+
+    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+</LinearLayout>

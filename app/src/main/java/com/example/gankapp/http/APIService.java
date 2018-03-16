@@ -3,6 +3,7 @@ package com.example.gankapp.http;
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.HttpResult;
 import com.example.gankapp.ui.bean.RandomEntity;
+import com.example.gankapp.ui.bean.SearchBean;
 
 import java.util.List;
 
@@ -30,4 +31,13 @@ public interface APIService {
     @GET("random/data/{type}/{count}")
     Call<RandomEntity> getRandomDatas(@Path("type") String type,
                                       @Path("count") int count);
+
+    //Search
+    //http://gank.io/api/search/query/listview/category/Android/count/10/page/1
+    @Headers("Cache-Control:public, max-age=120")
+    @GET("search/query/{keyword}/category/{type}/count/{count}/page/{pageIndex}")
+    Call<HttpResult<List<SearchBean>>> getSearchData(@Path("keyword") String keyWord,
+                                                     @Path("type")String type,
+                                                     @Path("count")int count,
+                                                     @Path("pageIndex")int indexPage);
 }

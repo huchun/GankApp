@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="action_search">搜索</string>
+    <string name="action_login">登录</string>
+    <string name="action_android">Android</string>
+    <string name="action_ios">IOS</string>
+    <string name="action_xiuxi">休息视频</string>
+    <string name="action_fuli">福利</string>
+    <string name="action_ziyuan">拓展资源</string>
+    <string name="action_qianduan">前端</string>
+    <string name="action_tuijian">瞎推荐</string>
+    <string name="action_app">App</string>
 
     <!--Dialog-->
     <string name="gank_dialog_confirm">确定</string>

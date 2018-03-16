@@ -4,7 +4,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_search">search</string>
+    <string name="action_login">login</string>
+    <string name="action_android">Android</string>
+    <string name="action_ios">IOS</string>
+    <string name="action_xiuxi">xiuxi</string>
+    <string name="action_fuli">fuli</string>
+    <string name="action_ziyuan">ziyuan</string>
+    <string name="action_qianduan">qianduan</string>
+    <string name="action_tuijian">tuijian</string>
+    <string name="action_app">App</string>
 
     <!--Dialog-->
     <string name="gank_dialog_confirm">confirm</string>

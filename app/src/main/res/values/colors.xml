@@ -18,6 +18,16 @@
     <color name="translate">#00000000</color>
     <color name="backgroundGray">#efefef</color>
 
+    <!--彩虹七色-->
+    <color name="type_01">#FF0000</color>red
+    <color name="type_02">#FF7F00</color>
+    <color name="type_03">#FFFF00</color>
+    <color name="type_04">#00FF00</color>
+    <color name="type_05">#00FFFF</color>
+    <color name="type_06">#0000FF</color>
+    <color name="type_07">#8B00FF</color>
+    <color name="type_08">#494949</color>
+
     <!--白天-->
     <color name="background_color">#fafafa</color>
     <color name="text_color">#3b3b3b</color>
