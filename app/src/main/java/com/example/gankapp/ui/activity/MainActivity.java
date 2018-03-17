@@ -20,8 +20,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.gankapp.R;
+import com.example.gankapp.ui.activity.login.LoginActivity;
 import com.example.gankapp.ui.base.BaseActivity;
 import com.example.gankapp.ui.bean.GankEntity;
+import com.example.gankapp.ui.bean.MobUserInfo;
 import com.example.gankapp.ui.fragment.CategoryFragment;
 import com.example.gankapp.ui.fragment.CollectFragment;
 import com.example.gankapp.ui.fragment.HistoryFragment;
@@ -30,6 +32,7 @@ import com.example.gankapp.util.Constants;
 import com.example.gankapp.util.DialogUtils;
 import com.example.gankapp.util.IntentUtils;
 import com.example.gankapp.util.SkinManager;
+import com.example.gankapp.util.UserUtils;
 
 import java.util.List;
 
@@ -250,7 +253,14 @@ public class MainActivity extends BaseActivity
                 startActivity(intent);
                 return true;
             case R.id.action_login:
+                //判断是不是登录了
+                MobUserInfo userInfo = UserUtils.getUserCache();
+                if (userInfo != null && !TextUtils.isEmpty(userInfo.getUid())){
+                    //跳转资料页面
 
+                }else{
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);

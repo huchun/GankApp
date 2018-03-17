@@ -2,8 +2,10 @@ package com.example.gankapp.http;
 
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.HttpResult;
+import com.example.gankapp.ui.bean.MobBaseEntity;
 import com.example.gankapp.ui.bean.RandomEntity;
 import com.example.gankapp.ui.bean.SearchBean;
+import com.example.gankapp.util.Constants;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by chunchun.hu on 2018/3/12.
@@ -40,4 +43,13 @@ public interface APIService {
                                                      @Path("type")String type,
                                                      @Path("count")int count,
                                                      @Path("pageIndex")int indexPage);
+
+    /* ----------------------用户系统接口---------------------- */
+    //用户注册
+    //http://apicloud.mob.com/user/rigister?key=123456&username=tangsir&password=4AC36A18EA02AC6C
+    @GET(Constants.URL_Mob + "user/rigister")
+    Call<MobBaseEntity> userRegister(@Query("key") String appkey,
+                                     @Query("username")String username,
+                                     @Query("password")String userpassword,
+                                     @Query("email")String useremail);
 }

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Handler;
 
 import com.example.gankapp.BuildConfig;
+import com.example.gankapp.util.ACache;
 import com.example.gankapp.util.NetUtils;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.socks.library.KLog;
@@ -34,6 +35,7 @@ public class MyApplicaiton extends Application {
 
     private static MyApplicaiton applicaiton = null;
     private static Handler mHandler;
+    private static ACache aCache;
 
     public static MyApplicaiton getIntstance(){
         synchronized (MyApplicaiton.class) {
@@ -65,6 +67,11 @@ public class MyApplicaiton extends Application {
     private void initBase() {
          applicaiton = this;
          mHandler = new Handler();
+         aCache = ACache.get(this); //初始化ACache类
+    }
+
+    public static ACache getACache() {
+        return aCache;
     }
 
     private void initLog() {

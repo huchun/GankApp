@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -79,6 +80,19 @@ public class BaseActivity extends AppCompatActivity {
         if (mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
         }
+    }
+
+    public void showProgressDialog(String msg) {
+       if (TextUtils.isEmpty(msg)){
+           showProgressDialog();
+       }else{
+           dismissProgressDialog();
+           mProgressDialog.show(msg);
+       }
+    }
+
+    public void showProgressSuccess(String msg) {
+        mStatusDialog.show(msg, getResources().getDrawable(R.mipmap.mn_icon_dialog_success));
     }
 
     @Override

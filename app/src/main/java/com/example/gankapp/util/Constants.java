@@ -16,10 +16,13 @@ public class Constants {
     //保存图片的地址
     public static final String BasePath = Environment.getExternalStorageDirectory() + "/GankApp";
 
-
-    public static final String FlagWelFare = "福利";
-
-
     public static final String SPSwitcherDataType = "SPSwitcherDataType"; //保存首页头条
 
+    //Mob官网API
+    public static final String URL_Mob = "http://apicloud.mob.com/";
+    //Mob ApiKey
+    public static final String URL_APP_Key = "1c9dccb9a2434";
+
+
+    public static final String FlagWelFare = "福利";
 }
