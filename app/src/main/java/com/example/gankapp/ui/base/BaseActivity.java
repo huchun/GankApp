@@ -25,7 +25,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = "BaseActivity";
 
-    private Context mContext;
+    public Context mContext;
     private MStatusDialog mStatusDialog;
     private MProgressDialog mProgressDialog;
 

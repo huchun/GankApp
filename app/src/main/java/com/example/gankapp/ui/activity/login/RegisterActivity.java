@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
 import com.example.gankapp.R;
 import com.example.gankapp.http.MobApi;
@@ -32,7 +32,7 @@ public class RegisterActivity extends BaseActivity {
 
     private static final String TAG = "RegisterActivity";
 
-    private RelativeLayout ll_bg = null;
+    private LinearLayout ll_bg = null;
     private Toolbar   mToolbar = null;
     private EditText  mEtUserName = null;
     private EditText  mEtUserPassword = null;

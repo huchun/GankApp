@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_color"
+    android:id="@+id/activity_main">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/burnsView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_user_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="30dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:elevation="15dp"
+                android:src="@mipmap/icon_default_avatar"
+                app:civ_border_color="@android:color/white"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/btn_edit_info"
+                android:layout_width="60dp"
+                android:layout_height="24dp"
+                android:layout_below="@id/avatar"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_bg_half_circle"
+                android:gravity="center"
+                android:text="编辑"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/circle_black_trance"
+            android:padding="4dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/gank_ic_back_white"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="200dp"
+        android:orientation="vertical"
+        />
+
+    <ScrollView
+        android:layout_below="@id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <ImageView
+               android:layout_width="match_parent"
+               android:layout_height="1px"
+               android:background="@android:color/darker_gray"/>
+
+           <com.example.gankapp.ui.view.MySettingItemView
+               android:id="@+id/item_app_collect"
+               android:layout_width="match_parent"
+               android:layout_height="44dp"
+               android:background="@android:color/white"
+               app:setting_red_dot="false"
+               app:setting_title="我的收藏" />
+
+           <ImageView
+               android:layout_width="match_parent"
+               android:layout_height="1px"
+               android:background="@android:color/darker_gray"/>
+
+           <com.example.gankapp.ui.view.MySettingItemView
+               android:id="@+id/item_app_setting"
+               android:layout_width="match_parent"
+               android:layout_height="44dp"
+               android:background="@android:color/white"
+               app:setting_red_dot="false"
+               app:setting_title="设置" />
+
+           <ImageView
+               android:layout_width="match_parent"
+               android:layout_height="1px"
+               android:background="@android:color/darker_gray"/>
+
+           <com.example.gankapp.ui.view.MySettingItemView
+               android:id="@+id/item_app_psd"
+               android:layout_width="match_parent"
+               android:layout_height="44dp"
+               android:background="@android:color/white"
+               app:setting_red_dot="false"
+               app:setting_title="修改密码" />
+
+           <ImageView
+               android:layout_width="match_parent"
+               android:layout_height="1px"
+               android:background="@android:color/darker_gray"/>
+
+           <com.example.gankapp.ui.view.MySettingItemView
+               android:id="@+id/item_app_market"
+               android:layout_width="match_parent"
+               android:layout_height="44dp"
+               android:background="@android:color/white"
+               app:setting_red_dot="false"
+               app:setting_title="评价" />
+
+           <ImageView
+               android:layout_width="match_parent"
+               android:layout_height="1px"
+               android:background="@android:color/darker_gray"/>
+
+           <com.example.gankapp.ui.view.MySettingItemView
+               android:id="@+id/item_app_support"
+               android:layout_width="match_parent"
+               android:layout_height="44dp"
+               android:background="@android:color/white"
+               app:setting_red_dot="false"
+               app:setting_title="支付" />
+
+           <ImageView
+               android:layout_width="match_parent"
+               android:layout_height="1px"
+               android:background="@android:color/darker_gray"/>
+
+           <Button
+               android:id="@+id/btn_quit_login"
+               style="?android:attr/borderlessButtonStyle"
+               android:layout_width="match_parent"
+               android:layout_height="44dp"
+               android:layout_margin="20dp"
+               android:background="@drawable/head_lines_bg"
+               android:text="退出登录"
+               android:textColor="@android:color/black"
+               />
+       </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

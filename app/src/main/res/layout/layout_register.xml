@@ -64,7 +64,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:background="@null"
-            android:hint="请输入用户名"
+            android:hint="请输入密码"
             android:textColor="@color/black_text2_color"
             android:textColorHint="@color/black_text3_color"
             android:textSize="14sp"/>
@@ -95,7 +95,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:background="@null"
-            android:hint="请输入用户名"
+            android:hint="请输入邮箱"
             android:textColor="@color/black_text2_color"
             android:textColorHint="@color/black_text3_color"
             android:textSize="14sp"/>

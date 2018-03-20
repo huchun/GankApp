@@ -71,6 +71,8 @@ dependencies {
     implementation 'com.yqritc:recyclerview-flexibledivider:1.2.9' /*RecycleView的间隔线*/
     implementation 'com.github.maning0303:MNProgressHUD:V1.0.3' /* 提示框 */
     implementation 'com.github.Aspsine:SwipeToLoadLayout:v1.0.4'   /*下拉刷新框架*/
+    implementation 'com.flaviofaria:kenburnsview:1.0.7' /* 背景可以移动的View */
+    implementation 'de.hdodenhof:circleimageview:2.1.0'  /* 圆形图片 */
 
     /*网络监测*/
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'

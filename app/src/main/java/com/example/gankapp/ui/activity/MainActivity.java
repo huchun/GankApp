@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.gankapp.R;
 import com.example.gankapp.ui.activity.login.LoginActivity;
+import com.example.gankapp.ui.activity.login.UserInfoActivity;
 import com.example.gankapp.ui.base.BaseActivity;
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.MobUserInfo;
@@ -257,7 +258,7 @@ public class MainActivity extends BaseActivity
                 MobUserInfo userInfo = UserUtils.getUserCache();
                 if (userInfo != null && !TextUtils.isEmpty(userInfo.getUid())){
                     //跳转资料页面
-
+                    startActivity(new Intent(MainActivity.this, UserInfoActivity.class));
                 }else{
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }

@@ -3,6 +3,7 @@ package com.example.gankapp.http;
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.HttpResult;
 import com.example.gankapp.ui.bean.MobBaseEntity;
+import com.example.gankapp.ui.bean.MobUserInfo;
 import com.example.gankapp.ui.bean.RandomEntity;
 import com.example.gankapp.ui.bean.SearchBean;
 import com.example.gankapp.util.Constants;
@@ -52,4 +53,11 @@ public interface APIService {
                                      @Query("username")String username,
                                      @Query("password")String userpassword,
                                      @Query("email")String useremail);
+
+    //用户登录
+    //http://apicloud.mob.com/user/login?key=123456&username=tangsir&password=4AC36A18EA02AC6C
+    @GET(Constants.URL_Mob + "user/login")
+    Call<MobBaseEntity<MobUserInfo>> userLogin(@Query("key")String key,
+                                               @Query("username")String username,
+                                               @Query("password")String password);
 }

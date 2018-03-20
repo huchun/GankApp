@@ -13,7 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 public class DialogUtils {
 
 
-    public static MaterialDialog showMyDialog(Context context, String title, String content, String positiveBtnText, String negativeBtnText, OnDialogClickListener listener) {
+    public static MaterialDialog showMyDialog(Context context, String title, String content, String positiveBtnText, String negativeBtnText, final OnDialogClickListener onDialogClickListener) {
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .title(title)
@@ -23,13 +23,17 @@ public class DialogUtils {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
+                        if (onDialogClickListener != null){
+                            onDialogClickListener.onConfirm();
+                        }
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
+                          if (onDialogClickListener != null){
+                              onDialogClickListener.onCancel();
+                          }
                     }
                 })
                 .show();

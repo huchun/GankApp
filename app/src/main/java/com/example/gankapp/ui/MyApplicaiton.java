@@ -7,13 +7,17 @@ import android.content.pm.PackageManager;
 import android.os.Handler;
 
 import com.example.gankapp.BuildConfig;
+import com.example.gankapp.ui.bean.MobUserInfo;
 import com.example.gankapp.util.ACache;
 import com.example.gankapp.util.NetUtils;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.socks.library.KLog;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;

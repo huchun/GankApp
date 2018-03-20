@@ -14,6 +14,13 @@
         <attr name="matProg_linearProgress" format="boolean" />
     </declare-styleable>
 
+    <!--自定义组合控件：设置界面Item-->
+    <declare-styleable name="SettingView">
+        <attr name="setting_title" format="string"/>
+        <attr name="setting_right_text" format="string"/>
+        <attr name="setting_red_dot" format="reference|boolean"/>
+    </declare-styleable>
+
     <!--夜间模式自定义属性-->
     <attr name="app_background" format="reference|color" />
     <attr name="text1_color" format="reference|color" />
@@ -26,5 +33,7 @@
     <attr name="refresh_bg" format="reference|color" />
 
     <attr name="app_icon_search" format="reference|color" />
+
+
 
 </resources>
