@@ -1,6 +1,7 @@
 package com.example.gankapp.util;
 
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.gankapp.ui.MyApplicaiton;
@@ -26,5 +27,10 @@ public class MySnackbar {
     public static void makeSnackBarRed(View view, String message) {
         Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
         ColoredSnackbar.alert(snackbar).show();
+    }
+
+    public static void makeSnackBarGreen(View view, String msg) {
+        Snackbar snackbar = Snackbar.make(view, msg, Snackbar.LENGTH_SHORT);
+        ColoredSnackbar.confirm(snackbar).show();
     }
 }

@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,22 +24,27 @@ import com.example.gankapp.R;
 import com.example.gankapp.ui.activity.login.LoginActivity;
 import com.example.gankapp.ui.activity.login.UserInfoActivity;
 import com.example.gankapp.ui.base.BaseActivity;
+import com.example.gankapp.ui.bean.AppUpdateInfo;
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.MobUserInfo;
+import com.example.gankapp.ui.bean.WeatherBaseEntity;
 import com.example.gankapp.ui.fragment.CategoryFragment;
 import com.example.gankapp.ui.fragment.CollectFragment;
 import com.example.gankapp.ui.fragment.HistoryFragment;
 import com.example.gankapp.ui.fragment.WelFareFragment;
+import com.example.gankapp.ui.iview.IMainView;
+import com.example.gankapp.ui.presenter.impl.MainPresenterImpl;
 import com.example.gankapp.util.Constants;
 import com.example.gankapp.util.DialogUtils;
 import com.example.gankapp.util.IntentUtils;
+import com.example.gankapp.util.MySnackbar;
 import com.example.gankapp.util.SkinManager;
 import com.example.gankapp.util.UserUtils;
 
 import java.util.List;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener , IMainView{
 
     private static final String TAG = "MainActivity";
 
@@ -63,14 +69,26 @@ public class MainActivity extends BaseActivity
     private static final String savedInstanceStateItemId = "navigationCheckedItemId";
     private static final String savedInstanceStateTitle = "navigationCheckedTitle";
 
+    private MainPresenterImpl mainPresenter;
+
     private List<GankEntity>  welFareList;
+    private WeatherBaseEntity.WeatherBean  weatherEntity;
+    private String provinceName;
+    private String cityName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mContext = this;
+        mainPresenter = new MainPresenterImpl(this, this);
+        mainPresenter.initDatas();
+        mainPresenter.initAppUpdate();
+        mainPresenter.initFeedBack();
+        mainPresenter.getLocationInfo();
+        mainPresenter.getCitys();
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +142,7 @@ public class MainActivity extends BaseActivity
         mHeader_ll_choose_city.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //切换城市
 
             }
         });
@@ -143,6 +162,7 @@ public class MainActivity extends BaseActivity
     }
 
     private void initOtherDatas(Bundle savedInstanceState) {
+        Log.d(TAG, "initOtherDatas");
          if (savedInstanceState != null && savedInstanceState.getInt(savedInstanceStateItemId) != 0){
                navigationCheckedItemId = savedInstanceState.getInt(savedInstanceStateItemId);
                navigationCheckedTitle = savedInstanceState.getString(savedInstanceStateTitle);
@@ -217,6 +237,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        Log.d(TAG, "onSaveInstanceState" + outState.toString());
         outState.putInt(savedInstanceStateItemId, navigationCheckedItemId);
         outState.putString(savedInstanceStateTitle,navigationCheckedTitle);
         super.onSaveInstanceState(outState);
@@ -224,6 +245,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
+        Log.d(TAG, "onBackPressed");
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -306,5 +328,31 @@ public class MainActivity extends BaseActivity
 
     public void setPicList(List<GankEntity> welFareList) {
          this.welFareList = welFareList;
+    }
+
+    @Override
+    public void showToast(String msg) {
+         MySnackbar.makeSnackBarBlack(mNavigationView, msg);
+    }
+
+    @Override
+    public void showAppUpdateDialog(AppUpdateInfo appUpdateInfo) {
+
+    }
+
+    @Override
+    public void initWeatherInfo(WeatherBaseEntity.WeatherBean weatherEntity) {
+
+    }
+
+    @Override
+    public void updateLocationInfo(String provinceName, String cityName) {
+        this.provinceName = provinceName;
+        this.cityName = cityName;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

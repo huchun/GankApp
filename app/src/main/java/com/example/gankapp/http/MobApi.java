@@ -92,4 +92,73 @@ public class MobApi {
 
         return call;
     }
+
+    public static Call<MobBaseEntity> userGetCodeVerification(String userName, final int what, final MyCallBack httpCallBack) {
+        Log.d(TAG, "userGetCodeVerification" + userName.toString());
+         Call<MobBaseEntity> call = BuildApi.getAPIService().userGetCodeVerification(Constants.URL_APP_Key, userName);
+
+         call.enqueue(new Callback<MobBaseEntity>() {
+             @Override
+             public void onResponse(Call<MobBaseEntity> call, Response<MobBaseEntity> response) {
+                 Log.d(TAG, "onResponse" + response.toString());
+                 if (response.isSuccessful()){
+                     MobBaseEntity entity = response.body();
+                     if (entity != null){
+                         if (entity.getRetCode().equals("200")){
+                              Log.d(TAG, "success：" + entity.toString());
+                             httpCallBack.onSuccess(what, entity.getMsg());
+                         }else{
+                              httpCallBack.onFail(what, entity.getMsg());
+                         }
+                     }else{
+                         httpCallBack.onFail(what, GET_DATA_FAIL);
+                     }
+                 }else{
+                     httpCallBack.onFail(what, GET_DATA_FAIL);
+                 }
+             }
+
+             @Override
+             public void onFailure(Call<MobBaseEntity> call, Throwable t) {
+                 Log.d(TAG, "onFailure" + t.toString());
+                 httpCallBack.onFail(what, NET_FAIL);  //数据错误
+             }
+         });
+         return call;
+    }
+
+    public static Call<MobBaseEntity> userModifyPsd(String userName, String oldPsd, String newPsd, String mode, final int what, final MyCallBack httpCallBack) {
+        Log.d(TAG, "userModifyPsd" + userName.toString() + oldPsd.toString() + newPsd.toString()+mode.toString());
+        Call<MobBaseEntity>  call = BuildApi.getAPIService().userModifyPsd(Constants.URL_APP_Key, userName, oldPsd, newPsd, mode);
+        call.enqueue(new Callback<MobBaseEntity>() {
+            @Override
+            public void onResponse(Call<MobBaseEntity> call, Response<MobBaseEntity> response) {
+                Log.d(TAG, "onResponse" + response.toString());
+                if (response.isSuccessful()){
+                    MobBaseEntity body = response.body();
+                    if (body != null){
+                        if (body.getMsg().equals("200")){
+                            Log.d(TAG, "success：" + body.toString());
+                            Object result = body.getResult();
+                            httpCallBack.onSuccess(what, result);
+                        }else{
+                            httpCallBack.onFail(what, body.getMsg());
+                        }
+                    }else{
+                          httpCallBack.onFail(what, GET_DATA_FAIL);
+                    }
+                }else{
+                    httpCallBack.onFail(what, GET_DATA_FAIL);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MobBaseEntity> call, Throwable t) {
+                Log.d(TAG, "onFailure" + t.toString());
+                httpCallBack.onFail(what, NET_FAIL);  //数据错误
+            }
+        });
+
+        return call;
+    }
 }

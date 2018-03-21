@@ -54,4 +54,8 @@ public class ColoredSnackbar {
     public static Snackbar alert(Snackbar snackbar) {
         return colorSnackBar(snackbar, red, white);
     }
+
+    public static Snackbar confirm(Snackbar snackbar) {
+        return colorSnackBar(snackbar, green, white);
+    }
 }

@@ -25,4 +25,30 @@ public class SharePreUtil {
         }
         return sp.getString(key,defValue);
     }
+
+    /**
+     * 保存boolean类配置信息
+     * @param context	上下文
+     * @param key		键
+     * @param value		值
+     */
+    public static boolean saveBooleanData(Context context, String key, boolean value) {
+        if (sp == null){
+            sp = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+        }
+        return sp.getBoolean(key, value);
+    }
+
+    /**
+     * 保存int类型配置信息
+     * @param context	上下文
+     * @param key		键
+     * @param value		值
+     */
+    public static void saveIntData(Context context, String key, int value) {
+        if (sp == null){
+            sp = context.getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+        }
+        sp.edit().putInt(key,value).commit();
+    }
 }

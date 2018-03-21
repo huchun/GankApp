@@ -4,10 +4,15 @@ import android.util.Log;
 
 import com.example.gankapp.R;
 import com.example.gankapp.ui.MyApplicaiton;
+import com.example.gankapp.ui.bean.AppUpdateInfo;
+import com.example.gankapp.ui.bean.CitysEntity;
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.HttpResult;
 import com.example.gankapp.ui.bean.RandomEntity;
 import com.example.gankapp.ui.bean.SearchBean;
+import com.example.gankapp.ui.bean.WeatherBaseEntity;
+import com.example.gankapp.util.Constants;
+import com.example.gankapp.util.UserUtils;
 import com.socks.library.KLog;
 
 import java.util.List;
@@ -143,5 +148,120 @@ public class GankHttpApi {
               }
           });
          return searchData;
+    }
+
+    public static Call<AppUpdateInfo> getAppUpdateInfo(final int what, final MyCallBack httpCallBack) {
+        Log.d(TAG,"getAppUpdateInfo");
+        Call<AppUpdateInfo>   updateInfoCall = BuildApi.getAPIService().getTheLastAppInfo();
+        updateInfoCall.enqueue(new Callback<AppUpdateInfo>() {
+            @Override
+            public void onResponse(Call<AppUpdateInfo> call, Response<AppUpdateInfo> response) {
+                Log.d(TAG, "onResponse" + response.toString());
+                if (response.isSuccessful()){
+                    AppUpdateInfo body = response.body();
+                    if (body != null){
+                        if (body.getName().equals("干货")){
+                            httpCallBack.onSuccess(what, body);
+                        }else{
+                            httpCallBack.onFail(what,GET_DATA_FAIL);
+                        }
+                    }else{
+                        httpCallBack.onFail(what,GET_DATA_FAIL);
+                    }
+                }else{
+                    httpCallBack.onFail(what,GET_DATA_FAIL);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AppUpdateInfo> call, Throwable t) {
+                Log.d(TAG, "onFailure" + t.toString());
+                httpCallBack.onFail(what,NET_FAIL);
+            }
+        });
+        return updateInfoCall;
+    }
+
+    /***
+     * 获取城市列表
+     *
+     * @param what
+     * @param httpCallBack
+     * @return
+     */
+    public static Call<CitysEntity> getCitys(final int what, final MyCallBack httpCallBack) {
+        Log.d(TAG, "getCitys");
+        Call<CitysEntity> entityCall = BuildApi.getAPIService().getCitys(Constants.URL_APP_Key);
+        entityCall.enqueue(new Callback<CitysEntity>() {
+            @Override
+            public void onResponse(Call<CitysEntity> call, Response<CitysEntity> response) {
+                Log.d(TAG, "onResponse " + response.toString());
+                if (response.isSuccessful()){
+                    CitysEntity citysEntity = response.body();
+                    if (citysEntity != null){
+                        UserUtils.saveCitysCache(citysEntity);
+                        if (citysEntity.getMsg().equals("success")){
+                            Log.d(TAG, "success:" + citysEntity.toString());
+                            httpCallBack.onSuccess(what,citysEntity.getResult());
+                        }else{
+                            httpCallBack.onFail(what, GET_DATA_FAIL);
+                        }
+                    }else{
+                        httpCallBack.onFail(what, GET_DATA_FAIL);
+                    }
+                }else{
+                    httpCallBack.onFail(what, GET_DATA_FAIL);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CitysEntity> call, Throwable t) {
+                Log.d(TAG, "onFailure " + t.toString());
+                httpCallBack.onFail(what, NET_FAIL);
+            }
+        });
+          return entityCall;
+    }
+
+    /***
+     * 获取城市天气信息
+     *
+     * @param city
+     * @param province
+     * @param what
+     * @param myCallBack
+     * @return
+     */
+    public static Call<WeatherBaseEntity> getCityWeather(String city, String province, final int what, final MyCallBack myCallBack) {
+        Log.d(TAG, "getCityWeather" + city.toString() + province.toString());
+        final Call<WeatherBaseEntity> weatherBaseEntityCall = BuildApi.getAPIService().getCityWeather(Constants.URL_APP_Key,city, province);
+        weatherBaseEntityCall.enqueue(new Callback<WeatherBaseEntity>() {
+            @Override
+            public void onResponse(Call<WeatherBaseEntity> call, Response<WeatherBaseEntity> response) {
+                 Log.d(TAG, "onResponse" + response.toString());
+                if (response.isSuccessful()){
+                    WeatherBaseEntity weatherBaseEntity = response.body();
+                    if (weatherBaseEntity != null){
+                        if (weatherBaseEntity.getMsg().equals("success")){
+                            Log.d(TAG, "success" + weatherBaseEntity.toString());
+                            myCallBack.onSuccess(what, weatherBaseEntity.getResult());
+                        }else {
+                            myCallBack.onFail(what,GET_DATA_FAIL);
+                        }
+                    }else{
+                        myCallBack.onFail(what,GET_DATA_FAIL);
+                    }
+                }else{
+                    myCallBack.onFail(what,GET_DATA_FAIL);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherBaseEntity> call, Throwable t) {
+                Log.d(TAG, "onFailure" + t.toString());
+                myCallBack.onFail(what,NET_FAIL);
+            }
+        });
+        return weatherBaseEntityCall;
     }
 }

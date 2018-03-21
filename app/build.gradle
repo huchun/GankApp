@@ -54,34 +54,46 @@ dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
-   // androidTestImplementation 'com.android.support.test:runner:1.0.1'
-   // androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    // androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    // androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.google.code.gson:gson:2.2.4'
     //implementation 'com.squareup.picasso:picasso:2.3.2'
-
-    implementation 'com.yanzhenjie:permission:1.0.5'   /*权限库*/
-    implementation 'com.github.bumptech.glide:glide:4.0.0' /*图片加载Glide*/
+    implementation 'com.yanzhenjie:permission:1.0.5'
+    /*权限库*/
+    implementation 'com.github.bumptech.glide:glide:4.0.0'
+    /*图片加载Glide*/
     implementation 'jp.wasabeef:glide-transformations:2.0.2'
     implementation 'com.squareup.okhttp:okhttp:2.0.0'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-
-    implementation 'com.android.support:multidex:1.0.1'  /* Dex分包 */
-    implementation 'com.afollestad.material-dialogs:core:0.9.3.0' /*material风格的dialogs*/
-    implementation 'com.yqritc:recyclerview-flexibledivider:1.2.9' /*RecycleView的间隔线*/
-    implementation 'com.github.maning0303:MNProgressHUD:V1.0.3' /* 提示框 */
-    implementation 'com.github.Aspsine:SwipeToLoadLayout:v1.0.4'   /*下拉刷新框架*/
-    implementation 'com.flaviofaria:kenburnsview:1.0.7' /* 背景可以移动的View */
-    implementation 'de.hdodenhof:circleimageview:2.1.0'  /* 圆形图片 */
-
+    implementation 'com.android.support:multidex:1.0.1'
+    /* Dex分包 */
+    implementation 'com.afollestad.material-dialogs:core:0.9.3.0'
+    /*material风格的dialogs*/
+    implementation 'com.yqritc:recyclerview-flexibledivider:1.2.9'
+    /*RecycleView的间隔线*/
+    implementation 'com.github.maning0303:MNProgressHUD:V1.0.3'
+    /* 提示框 */
+    implementation 'com.github.Aspsine:SwipeToLoadLayout:v1.0.4'
+    /*下拉刷新框架*/
+    implementation 'com.flaviofaria:kenburnsview:1.0.7'
+    /* 背景可以移动的View */
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    /* 圆形图片 */
     /*网络监测*/
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
-    implementation 'com.github.zhaokaiqiang.klog:library:1.6.0'  /*日志*/
-    implementation 'com.github.maning0303:SwitcherView:v1.0.4' /*翻滚广告条TextView*/
-    implementation 'com.ldoublem.thumbUplib:ThumbUplib:0.5' /*点赞收藏按钮*/
-
-    implementation 'com.github.chrisbanes:PhotoView:2.0.0' /* 图片浏览器所需 */
-    implementation 'com.jaeger.statusbarutil:library:1.4.0'   /* 状态栏 */
-    implementation 'com.umeng.analytics:analytics:latest.integration' /*Umeng统计*/
+    implementation 'com.github.zhaokaiqiang.klog:library:1.6.0'
+    /*日志*/
+    implementation 'com.github.maning0303:SwitcherView:v1.0.4'
+    /*翻滚广告条TextView*/
+    implementation 'com.ldoublem.thumbUplib:ThumbUplib:0.5'
+    /*点赞收藏按钮*/
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    /* 图片浏览器所需 */
+    implementation 'com.jaeger.statusbarutil:library:1.4.0'
+    /* 状态栏 */
+    implementation 'com.umeng.analytics:analytics:latest.integration'
+    /*Umeng统计*/
+    implementation files('libs/AMap_Location_V3.3.0_20170118.jar')
 }

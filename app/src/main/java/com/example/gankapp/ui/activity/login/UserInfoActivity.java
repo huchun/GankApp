@@ -1,5 +1,6 @@
 package com.example.gankapp.ui.activity.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -97,7 +98,9 @@ public class UserInfoActivity extends BaseActivity {
       mItemAppPsd.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-
+              Intent intent = new Intent(UserInfoActivity.this, ForgetPsdActivity.class);
+              intent.putExtra(ForgetPsdActivity.IntentKey_Mode, 1);
+              startActivity(intent);
           }
       });
       mItemAppMarket.setOnClickListener(new View.OnClickListener() {

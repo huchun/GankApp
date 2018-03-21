@@ -99,6 +99,11 @@ public class MyApplicaiton extends Application {
         return getPackageInfo(context).versionName;
     }
 
+    //版本号
+    public static int getVersionCode(Context context) {
+        return getPackageInfo(context).versionCode;
+    }
+
     private static PackageInfo getPackageInfo(Context context) {
         PackageInfo packageInfo = null;
 

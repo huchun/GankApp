@@ -1,6 +1,7 @@
 package com.example.gankapp.util;
 
 import com.example.gankapp.ui.MyApplicaiton;
+import com.example.gankapp.ui.bean.CitysEntity;
 import com.example.gankapp.ui.bean.MobUserInfo;
 
 /**
@@ -11,7 +12,7 @@ public class UserUtils {
 
 
     private static final String cache_UserLogin = "cache_UserLogin";
-
+    private static final String cache_citys = "Cache_Citys";
     /**
      * get userInfo
      * @return
@@ -22,6 +23,12 @@ public class UserUtils {
             userInfo = new MobUserInfo();
         }
         return userInfo;
+    }
+
+    public static void saveCitysCache(CitysEntity citysEntity) {
+          if (citysEntity != null){
+              MyApplicaiton.getACache().put(cache_citys,citysEntity);
+          }
     }
 
     /**

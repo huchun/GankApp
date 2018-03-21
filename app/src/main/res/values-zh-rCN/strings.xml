@@ -12,6 +12,8 @@
     <string name="action_tuijian">瞎推荐</string>
     <string name="action_app">App</string>
 
+    <string name="gank_hint_exit_app">再按一次退出程序</string>
+
     <!--Dialog-->
     <string name="gank_dialog_confirm">确定</string>
     <string name="gank_dialog_title_notify">通知</string>

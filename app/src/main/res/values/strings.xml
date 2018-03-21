@@ -18,6 +18,7 @@
     <!--Dialog-->
     <string name="gank_dialog_confirm">confirm</string>
     <string name="gank_dialog_title_notify">notify</string>
+    <string name="gank_hint_exit_app">exit app</string>
 
     <!--http-->
     <string name="gank_net_fail">http requestion</string>

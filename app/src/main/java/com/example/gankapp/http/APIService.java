@@ -1,11 +1,14 @@
 package com.example.gankapp.http;
 
+import com.example.gankapp.ui.bean.AppUpdateInfo;
+import com.example.gankapp.ui.bean.CitysEntity;
 import com.example.gankapp.ui.bean.GankEntity;
 import com.example.gankapp.ui.bean.HttpResult;
 import com.example.gankapp.ui.bean.MobBaseEntity;
 import com.example.gankapp.ui.bean.MobUserInfo;
 import com.example.gankapp.ui.bean.RandomEntity;
 import com.example.gankapp.ui.bean.SearchBean;
+import com.example.gankapp.ui.bean.WeatherBaseEntity;
 import com.example.gankapp.util.Constants;
 
 import java.util.List;
@@ -60,4 +63,37 @@ public interface APIService {
     Call<MobBaseEntity<MobUserInfo>> userLogin(@Query("key")String key,
                                                @Query("username")String username,
                                                @Query("password")String password);
+    //找回密码-获取验证码
+    //http://apicloud.mob.com/user/password/retrieve?key=123456&username=duyp
+    @GET(Constants.URL_Mob + "user/password/retrieve")
+    Call<MobBaseEntity> userGetCodeVerification(@Query("key")String key,
+                                                @Query("username")String userName);
+
+    //修改密码
+    //http://apicloud.mob.com/user/password/change?key=123456&username=duyp&oldPassword=123456789&newPassword=a0987654321
+    @GET(Constants.URL_Mob + "user/password/change")
+    Call<MobBaseEntity> userModifyPsd(@Query("key")String key,
+                                      @Query("username")String userName,
+                                      @Query("oldPassword") String oldPsd,
+                                      @Query("newPassword")String newPsd,
+                                      @Query("mode")String mode);
+    //模式：1-用户输入旧密码;2-由用户通过找回密码接口获取系统随机码，默认为1
+
+    //获取fir.im中的GankMM的最新版本
+    @Headers("Cache-Control: public, max-age=3600")
+    @GET(Constants.URL_AppUpdateInfo)
+    Call<AppUpdateInfo> getTheLastAppInfo();
+
+    //城市列表查询接口
+    //http://apicloud.mob.com/v1/weather/citys?key=appkey
+    @Headers("Cache-Control: public, max-age=300")
+    @GET(Constants.URL_Mob + "v1/weather/citys")
+    Call<CitysEntity> getCitys(@Query("key")String key);
+
+    //获取天气信息
+    @Headers("Cache-Control: public, max-age=300")
+    @GET(Constants.URL_Mob + "v1/weather/query")
+    Call<WeatherBaseEntity> getCityWeather(@Query("key")String key,
+                                           @Query("city")String city,
+                                           @Query("province")String province);
 }
