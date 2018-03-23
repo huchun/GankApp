@@ -79,6 +79,7 @@ dependencies {
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
     /* 背景可以移动的View */
     implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'jp.wasabeef:blurry:2.1.1' /* 模糊 */
     /* 圆形图片 */
     /*网络监测*/
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
@@ -96,4 +97,5 @@ dependencies {
     implementation 'com.umeng.analytics:analytics:latest.integration'
     /*Umeng统计*/
     implementation files('libs/AMap_Location_V3.3.0_20170118.jar')
+
 }

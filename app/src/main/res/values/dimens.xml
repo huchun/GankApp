@@ -9,4 +9,6 @@
     <dimen name="refresh_header_height_twitter">50dp</dimen>
     <dimen name="load_more_footer_height_twitter">50dp</dimen>
 
+    <dimen name="refresh_header_height_weather">80dp</dimen>
+
 </resources>

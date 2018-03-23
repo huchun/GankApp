@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#55000000"
+    android:fitsSystemWindows="true"
+    android:id="@+id/rl_root">
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+    <LinearLayout
+        android:id="@+id/ll_bg_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_bg2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusableInTouchMode="true"
+        android:focusable="true" >
+
+        <RelativeLayout
+            android:id="@+id/rl_head"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="14dp"
+                android:paddingRight="15dp" >
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/gank_ic_back_white" />
+
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="城市"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/swipeToLoadLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <include android:id="@id/swipe_refresh_header"
+                  layout="@layout/layout_weather_header"  />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/swipe_target"
+                android:layout_below="@id/rl_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:clipToPadding="false"
+                android:fadeScrollbars="true"
+                android:scrollbars="vertical" />
+
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

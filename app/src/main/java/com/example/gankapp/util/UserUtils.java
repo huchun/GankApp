@@ -25,6 +25,11 @@ public class UserUtils {
         return userInfo;
     }
 
+    public static CitysEntity getCitysCache() {
+        CitysEntity citysEntity = (CitysEntity) MyApplicaiton.getACache().getAsObject(cache_citys);
+        return citysEntity;
+    }
+
     public static void saveCitysCache(CitysEntity citysEntity) {
           if (citysEntity != null){
               MyApplicaiton.getACache().put(cache_citys,citysEntity);

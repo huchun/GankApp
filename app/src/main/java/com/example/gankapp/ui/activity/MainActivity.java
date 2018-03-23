@@ -3,6 +3,7 @@ package com.example.gankapp.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -11,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,9 +38,13 @@ import com.example.gankapp.util.Constants;
 import com.example.gankapp.util.DialogUtils;
 import com.example.gankapp.util.IntentUtils;
 import com.example.gankapp.util.MySnackbar;
+import com.example.gankapp.util.SharePreUtil;
 import com.example.gankapp.util.SkinManager;
 import com.example.gankapp.util.UserUtils;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity
@@ -73,6 +77,7 @@ public class MainActivity extends BaseActivity
 
     private List<GankEntity>  welFareList;
     private WeatherBaseEntity.WeatherBean  weatherEntity;
+    private static final int citysChooseRequestCode = 10001;
     private String provinceName;
     private String cityName;
 
@@ -126,26 +131,49 @@ public class MainActivity extends BaseActivity
         mNavigationView.setNavigationItemSelectedListener(this);
 
         View headerLayout = mNavigationView.inflateHeaderView(R.layout.nav_header_main);
-        mLayoutWeather = (RelativeLayout) headerLayout.findViewById(R.id.layout_weather);
+        mLayoutWeather = headerLayout.findViewById(R.id.layout_weather);
         mHeader_tv_temperature = headerLayout.findViewById(R.id.header_tv_temperature);
         mHeader_tv_other = headerLayout.findViewById(R.id.header_tv_other);
         mHeader_iv_weather =headerLayout.findViewById(R.id.imageView);
-        mHeader_ll_choose_city = (LinearLayout) headerLayout.findViewById(R.id.header_layout_choose_city);
+        mHeader_ll_choose_city = headerLayout.findViewById(R.id.header_layout_choose_city);
         mHeader_tv_city_name = headerLayout.findViewById(R.id.header_tv_city_name);
 
         mLayoutWeather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               // 切换天气
+               if (weatherEntity != null){
+                   Intent intent_weather = new Intent(MainActivity.this, WeatherActivity.class);
+                   intent_weather.putExtra(WeatherActivity.intentKey_weatherBean, weatherEntity);
+                   intent_weather.putExtra(WeatherActivity.intentKey_weatherProvinceName, provinceName);
+                   intent_weather.putExtra(WeatherActivity.intentKey_weatherCityName, cityName);
+                   if (welFareList != null && welFareList.size() > 0){
+                       intent_weather.putStringArrayListExtra(WeatherActivity.intentKey_bg_url, (ArrayList) welFareList);
+                   }
+                   startActivity(intent_weather);
+               }
             }
         });
         mHeader_ll_choose_city.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //切换城市
-
+                Intent intent = new Intent(MainActivity.this, CitysActivity.class);
+                startActivityForResult(intent, citysChooseRequestCode);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == citysChooseRequestCode){
+            if (data != null){
+                provinceName = data.getStringExtra("provinceName");
+                cityName = data.getStringExtra("cityName");
+                mainPresenter.getCityWeather(provinceName, cityName);
+            }
+        }
     }
 
     private void initIntent() {
@@ -255,6 +283,13 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    protected void onDestroy() {
+        mainPresenter.destroyLocation();
+        mainPresenter.detachView();
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -321,7 +356,7 @@ public class MainActivity extends BaseActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -342,7 +377,16 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void initWeatherInfo(WeatherBaseEntity.WeatherBean weatherEntity) {
+         this.weatherEntity = weatherEntity;  //初始化天气信息
+         String temperature = weatherEntity.getTemperature(); //当前温度
+         String airCondition = weatherEntity.getAirCondition(); //空气
+         String weather = weatherEntity.getWeather(); //天气
+         String cityName = weatherEntity.getCity(); //城市
 
+        mHeader_tv_temperature.setText(temperature);
+        mHeader_tv_other.setText(weather + "空气" + airCondition);
+        mHeader_iv_weather.setImageDrawable(getResources().getDrawable(SharePreUtil.getIntData(mContext, weather, R.mipmap.icon_weather_none)));
+        mHeader_tv_city_name.setText(cityName);
     }
 
     @Override
@@ -352,7 +396,37 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // 只需要调用这一句，其它的交给AndPermission吧，最后一个参数是PermissionListener。
+        AndPermission.onRequestPermissionsResult(requestCode, permissions,grantResults, listener);
     }
+
+    private PermissionListener listener = new PermissionListener() {
+        @Override
+        public void onSucceed(int requestCode, List<String> grantPermissions) {
+             Log.d(TAG, "onSucceed" + grantPermissions.toString());
+             MySnackbar.makeSnackBarBlack(mToolbar, "权限申请成功");
+             if (grantPermissions.contains("android.permission.ACCESS_FINE_LOCATION")){
+                 Log.d(TAG, "定位权限申请成功");
+                 mainPresenter.getLocationInfo();
+             }
+        }
+
+        @Override
+        public void onFailed(int requestCode, List<String> deniedPermissions) {
+            Log.d(TAG, "onFailed" + deniedPermissions.toString());
+            // 权限申请失败回调。
+            // 用户否勾选了不再提示并且拒绝了权限，那么提示用户到设置中授权。
+            if (AndPermission.hasAlwaysDeniedPermission(MainActivity.this, deniedPermissions)){
+                // 权限申请失败回调。
+                // 用户否勾选了不再提示并且拒绝了权限，那么提示用户到设置中授权。
+                AndPermission.defaultSettingDialog(MainActivity.this, 300)
+                        .setTitle("权限申请失败")
+                        .setMessage("我们需要的一些权限被您拒绝或者系统发生错误申请失败，请您到设置页面手动授权，否则功能无法正常使用！")
+                        .setPositiveButton("好，去设置")
+                        .show();
+            }
+        }
+    };
 }
